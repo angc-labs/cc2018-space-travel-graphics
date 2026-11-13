@@ -1,5 +1,6 @@
 # cc2018 - Space travel (24248)
 
+<img width="724" height="558" alt="image" src="https://github.com/user-attachments/assets/58bd539d-5954-44c6-b284-b51a93149479" />
 
 
 ## Controles
