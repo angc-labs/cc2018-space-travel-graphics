@@ -1,4 +1,5 @@
-// codigo implementado con gemini e inspirado por https://www.raylib.com/examples/models/loader.html?name=models_skybox_rendering
+// codigo implementado con gemini 3.8
+// https://www.raylib.com/examples/models/loader.html?name=models_skybox_rendering
 const std = @import("std");
 const rl = @import("raylib");
 const camera_mod = @import("camera.zig");

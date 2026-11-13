@@ -40,8 +40,3 @@ pub const TriangleFace = struct {
 pub fn edgeFunction2D(p1: rl.Vector2, p2: rl.Vector2, p3: rl.Vector2) f32 {
     return (p2.x - p1.x) * (p3.y - p1.y) - (p2.y - p1.y) * (p3.x - p1.x);
 }
-
-// descartar caras que dan la espalda a la pantalla
-pub fn isBackFace2D(a: rl.Vector2, b: rl.Vector2, c: rl.Vector2) bool {
-    return edgeFunction2D(a, b, c) <= 0.0;
-}

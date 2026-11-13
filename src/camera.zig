@@ -67,8 +67,12 @@ pub const Camera = struct {
     // rotar camara con wasd o mouse
     pub fn rotate(self: *Camera, delta_yaw: f32, delta_pitch: f32) void {
         self.yaw += delta_yaw;
-        while (self.yaw > std.math.pi) self.yaw -= 2.0 * std.math.pi;
-        while (self.yaw < -std.math.pi) self.yaw += 2.0 * std.math.pi;
+        while (self.yaw > std.math.pi) {
+            self.yaw -= 2.0 * std.math.pi;
+        }
+        while (self.yaw < -std.math.pi) {
+            self.yaw += 2.0 * std.math.pi;
+        }
 
         self.pitch = std.math.clamp(self.pitch + delta_pitch, -1.45, 1.45);
         self.updateVectors();
@@ -114,7 +118,9 @@ pub const Camera = struct {
 // pasar punto 3d a 2d en pantalla usando mvp
 pub fn projectPointWithMVP(mvp: Mat4, point: rl.Vector3, screen_w: f32, screen_h: f32) ?struct { p: rl.Vector2, z: f32 } {
     const clip = mvp.transformPoint(point);
-    if (clip.w <= 0.05) return null;
+    if (clip.w <= 0.05) {
+        return null;
+    }
 
     const inv_w = 1.0 / clip.w;
     return .{

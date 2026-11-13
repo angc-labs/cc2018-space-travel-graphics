@@ -18,7 +18,9 @@ pub const Mesh = struct {
 // cargar archivo obj y convertir caras a triangulos
 pub fn loadOBJ(allocator: std.mem.Allocator, path: [:0]const u8) !Mesh {
     const raw_text = rl.loadFileText(path);
-    if (raw_text.len == 0) return error.FileNotFoundOrEmpty;
+    if (raw_text.len == 0) {
+        return error.FileNotFoundOrEmpty;
+    }
     defer rl.unloadFileText(raw_text);
 
     var vertices: std.ArrayList(rl.Vector3) = .empty;
@@ -36,7 +38,9 @@ pub fn loadOBJ(allocator: std.mem.Allocator, path: [:0]const u8) !Mesh {
     var line_it = std.mem.splitScalar(u8, raw_text, '\n');
     while (line_it.next()) |raw_line| {
         const line = std.mem.trim(u8, raw_line, " \t\r");
-        if (line.len == 0 or line[0] == '#') continue;
+        if (line.len == 0 or line[0] == '#') {
+            continue;
+        }
 
         // revisar que parte de la nave es
         if (std.mem.startsWith(u8, line, "o ")) {
@@ -61,7 +65,9 @@ pub fn loadOBJ(allocator: std.mem.Allocator, path: [:0]const u8) !Mesh {
             while (tok_it.next()) |token| {
                 var slash_it = std.mem.splitScalar(u8, token, '/');
                 const v_str = slash_it.next() orelse continue;
-                if (v_str.len == 0) continue;
+                if (v_str.len == 0) {
+                    continue;
+                }
 
                 const raw_idx = std.fmt.parseInt(i32, v_str, 10) catch continue;
                 const v_idx: usize = if (raw_idx > 0)
@@ -90,7 +96,9 @@ pub fn loadOBJ(allocator: std.mem.Allocator, path: [:0]const u8) !Mesh {
         }
     }
 
-    if (vertices.items.len == 0) return error.NoVerticesFound;
+    if (vertices.items.len == 0) {
+        return error.NoVerticesFound;
+    }
 
     return Mesh{
         .vertices = try vertices.toOwnedSlice(allocator),
